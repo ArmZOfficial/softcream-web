@@ -3,6 +3,8 @@ import { getSiteContent, saveSiteContent } from "@/lib/storage";
 import { isAuthenticated } from "@/lib/auth";
 import type { SiteContent } from "@/lib/types";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const content = await getSiteContent();
   return NextResponse.json(content);

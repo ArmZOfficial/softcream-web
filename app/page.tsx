@@ -1,7 +1,7 @@
 import { getSiteContent } from "@/lib/storage";
 import SitePage from "@/components/SitePage";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const content = await getSiteContent();
