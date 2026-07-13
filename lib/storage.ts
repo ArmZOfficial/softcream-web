@@ -7,14 +7,27 @@ import siteContentJson from "../data/site-content.json";
 const LOCAL_DATA_PATH = path.join(process.cwd(), "data", "site-content.json");
 
 function isKvConfigured(): boolean {
-  return !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
+  return !!(
+    (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) ||
+    (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) ||
+    (process.env.KV_URL && process.env.KV_TOKEN)
+  );
 }
 
 async function getKv() {
   if (!isKvConfigured()) return null;
   try {
-    const { kv } = await import("@vercel/kv");
-    return kv;
+    const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL || process.env.KV_URL;
+    const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_TOKEN;
+
+    if (url && !process.env.KV_REST_API_URL) process.env.KV_REST_API_URL = url;
+    if (token && !process.env.KV_REST_API_TOKEN) process.env.KV_REST_API_TOKEN = token;
+
+    const vercelKv = await import("@vercel/kv");
+    if (url && token && vercelKv.createClient) {
+      return vercelKv.createClient({ url, token });
+    }
+    return vercelKv.kv;
   } catch (err) {
     console.error("Failed to load @vercel/kv:", err);
     return null;
@@ -62,6 +75,10 @@ export async function saveSiteContent(content: SiteContent): Promise<void> {
   if (kvInstance) {
     await kvInstance.set(CONTENT_KEY, content);
     return;
+  }
+
+  if (process.env.VERCEL === "1" || process.env.VERCEL_ENV) {
+    throw new Error("ยังไม่ได้เชื่อมต่อฐานข้อมูล Vercel KV / Upstash Redis กรุณาเพิ่ม Redis Storage ใน Vercel Dashboard → Storage เพื่อให้สามารถบันทึกข้อมูลบน Production ได้");
   }
 
   await writeLocal(content);

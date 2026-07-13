@@ -94,7 +94,8 @@ export default function AdminPanel({ initialContent }: AdminPanelProps) {
       if (res.ok) {
         setMessage("Saved successfully!");
       } else {
-        setMessage("Save failed.");
+        const data = await res.json().catch(() => ({}));
+        setMessage(data.error || "Save failed.");
       }
     } catch {
       setMessage("Save failed.");

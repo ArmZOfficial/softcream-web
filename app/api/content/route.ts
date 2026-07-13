@@ -20,7 +20,7 @@ export async function PUT(request: Request) {
     const body = (await request.json()) as SiteContent;
     await saveSiteContent(body);
     return NextResponse.json({ success: true });
-  } catch {
-    return NextResponse.json({ error: "Invalid data" }, { status: 400 });
+  } catch (err: any) {
+    return NextResponse.json({ error: err?.message || "Invalid data" }, { status: 400 });
   }
 }
