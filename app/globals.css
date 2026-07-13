@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --moon-white: #f7f8fc;
+  --sky-light: #a9c6ec;
+  --periwinkle: #5b7fc4;
+  --midnight: #1c2a52;
+  --violet-glow: #6a4fc2;
+  --gold-accent: #c9a24b;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: rgba(106, 79, 194, 0.4);
+  color: var(--moon-white);
+}
+
+:focus-visible {
+  outline: 2px solid var(--sky-light);
+  outline-offset: 2px;
+}
+
+/* Global Image Protection */
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
