@@ -4,7 +4,7 @@ import AdminLogin from "@/components/admin/AdminLogin";
 import AdminPanel from "@/components/admin/AdminPanel";
 
 export const metadata = {
-  title: "Admin — ดวงจันทร์ CMS",
+  title: "Admin — softcreamzx - vtuber 🌙",
 };
 
 export default async function AdminPage() {

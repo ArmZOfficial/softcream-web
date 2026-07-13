@@ -32,8 +32,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata = {
-  title: "ดวงจันทร์ — VTuber Personal Site",
-  description: "คืนพระจันทร์สีน้ำเงินในมหาวิหารดอกไม้ — Dreamy VTuber personal website",
+  title: "softcreamzx - vtuber 🌙",
+  description: "softcreamzx — Dreamy blue VTuber personal website",
 };
 
 export default function RootLayout({

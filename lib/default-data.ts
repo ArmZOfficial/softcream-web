@@ -18,7 +18,7 @@ export const IMAGE_PATHS = {
 } as const;
 
 export const defaultContent: SiteContent = {
-  siteName: "ดวงจันทร์",
+  siteName: "softcreamzx",
   tagline: "Stars can't shine without darkness",
   hero: {
     followUrl: "https://twitter.com",
