@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { IMAGE_PATHS } from "@/lib/default-data";
 import { whiteFilter } from "@/lib/utils";
@@ -27,53 +27,35 @@ interface SparklesProps {
 }
 
 export default function Sparkles({ enabled = true }: SparklesProps) {
-  const reducedMotion = useReducedMotion();
-
   if (!enabled) return null;
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[2]" aria-hidden="true">
-      {sparkleItems.map((item, i) =>
-        reducedMotion ? (
+      {sparkleItems.map((item, i) => (
+        <motion.div
+          key={i}
+          className="absolute"
+          style={{ top: item.top, left: item.left }}
+          animate={{
+            opacity: [0.2, 0.9, 0.3, 0.8, 0.2],
+            scale: [0.7, 1.1, 0.85, 1.05, 0.7],
+          }}
+          transition={{
+            duration: 3 + (i % 3),
+            delay: item.delay,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
           <Image
-            key={i}
             src={item.src}
             alt=""
             width={item.size}
             height={item.size}
-            className="absolute opacity-40"
-            style={{
-              top: item.top,
-              left: item.left,
-              filter: whiteFilter,
-            }}
+            style={{ filter: whiteFilter }}
           />
-        ) : (
-          <motion.div
-            key={i}
-            className="absolute"
-            style={{ top: item.top, left: item.left }}
-            animate={{
-              opacity: [0.2, 0.9, 0.3, 0.8, 0.2],
-              scale: [0.7, 1.1, 0.85, 1.05, 0.7],
-            }}
-            transition={{
-              duration: 3 + (i % 3),
-              delay: item.delay,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            <Image
-              src={item.src}
-              alt=""
-              width={item.size}
-              height={item.size}
-              style={{ filter: whiteFilter }}
-            />
-          </motion.div>
-        )
-      )}
+        </motion.div>
+      ))}
     </div>
   );
 }

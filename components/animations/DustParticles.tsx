@@ -17,9 +17,6 @@ export default function DustParticles({ enabled = true }: DustParticlesProps) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reducedMotion) return;
-
     let animationId: number;
     const particles: Array<{
       x: number;

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { IMAGE_PATHS } from "@/lib/default-data";
 import { whiteFilter } from "@/lib/utils";
@@ -11,26 +11,10 @@ interface ButterflyProps {
 }
 
 function Butterfly({ index, src }: ButterflyProps) {
-  const reducedMotion = useReducedMotion();
-  const startX = (index * 17 + 5) % 100;
   const duration = 18 + (index % 5) * 4;
   const delay = index * 2.5;
   const size = 40 + (index % 3) * 20;
   const topStart = 10 + (index * 13) % 70;
-
-  if (reducedMotion) {
-    return (
-      <Image
-        src={src || IMAGE_PATHS.butterflies}
-        alt=""
-        width={size}
-        height={size}
-        className="pointer-events-none absolute opacity-40"
-        style={{ left: `${startX}%`, top: `${topStart}%` }}
-        aria-hidden="true"
-      />
-    );
-  }
 
   return (
     <motion.div

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import type { Song } from "@/lib/types";
 import { IMAGE_PATHS } from "@/lib/default-data";
@@ -20,7 +20,6 @@ function getYouTubeId(url: string): string | null {
 }
 
 function Equalizer({ playing }: { playing: boolean }) {
-  const reducedMotion = useReducedMotion();
   const bars = [0, 1, 2, 3, 4];
 
   return (
@@ -30,7 +29,7 @@ function Equalizer({ playing }: { playing: boolean }) {
           key={i}
           className="w-[3px] rounded-full bg-sky-light"
           animate={
-            playing && !reducedMotion
+            playing
               ? { height: ["4px", "14px", "6px", "12px", "4px"] }
               : { height: "4px" }
           }

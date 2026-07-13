@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence, useReducedMotion, useMotionValue, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import Image from "next/image";
 import { IMAGE_PATHS } from "@/lib/default-data";
 
@@ -13,7 +13,6 @@ interface VTuberCharacterProps {
 export default function VTuberCharacter({ primaryImage, altImage }: VTuberCharacterProps) {
   const [useAlt, setUseAlt] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const reducedMotion = useReducedMotion();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const rotateX = useTransform(mouseY, [-300, 300], [3, -3]);
@@ -21,17 +20,16 @@ export default function VTuberCharacter({ primaryImage, altImage }: VTuberCharac
 
   // Automatic Slideshow Timer (Crossfade every 5 seconds when not paused/hovered)
   useEffect(() => {
-    if (reducedMotion || isHovered) return;
+    if (isHovered) return;
 
     const timer = setInterval(() => {
       setUseAlt((prev) => !prev);
     }, 5000);
 
     return () => clearInterval(timer);
-  }, [reducedMotion, isHovered]);
+  }, [isHovered]);
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (reducedMotion) return;
     const rect = e.currentTarget.getBoundingClientRect();
     mouseX.set(e.clientX - rect.left - rect.width / 2);
     mouseY.set(e.clientY - rect.top - rect.height / 2);

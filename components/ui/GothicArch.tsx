@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { ReactNode } from "react";
 import { IMAGE_PATHS } from "@/lib/default-data";
@@ -21,13 +21,11 @@ export default function GothicArch({
   showDivider = true,
   variant = "rounded",
 }: GothicArchProps) {
-  const reducedMotion = useReducedMotion();
-
   return (
     <motion.section
       id={id}
       className={`relative mx-auto w-full max-w-5xl px-4 py-16 md:px-8 ${className}`}
-      initial={reducedMotion ? {} : { opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.7, ease: "easeOut" }}
@@ -65,7 +63,7 @@ export default function GothicArch({
       {showDivider && (
         <div className="mt-8 flex justify-center">
           <motion.div
-            animate={reducedMotion ? {} : { opacity: [0.4, 1, 0.4] }}
+            animate={{ opacity: [0.4, 1, 0.4] }}
             transition={{ duration: 3, repeat: Infinity }}
           >
             <Image
