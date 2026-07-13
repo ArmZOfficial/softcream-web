@@ -11,7 +11,8 @@ import Sparkles from "@/components/animations/Sparkles";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
 import Schedule from "@/components/sections/Schedule";
-import { Footer } from "@/components/sections/Socials";
+import Gallery from "@/components/sections/Gallery";
+import Socials, { Footer } from "@/components/sections/Socials";
 import AdminGearButton from "@/components/ui/AdminGearButton";
 
 interface SitePageProps {
@@ -38,7 +39,9 @@ export default function SitePage({ content }: SitePageProps) {
       <main className="relative z-10">
         <Hero content={content} />
         <About about={content.about} />
+        <Gallery images={content.gallery} />
         <Schedule schedule={content.schedule} />
+        <Socials socials={content.socials} />
         <Footer siteName={content.siteName} />
       </main>
 
