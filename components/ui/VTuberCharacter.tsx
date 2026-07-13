@@ -85,7 +85,7 @@ export default function VTuberCharacter({ primaryImage, altImage }: VTuberCharac
             initial={{ opacity: 0 }}
             animate={{
               opacity: 1,
-              y: reducedMotion ? 0 : [0, -12, 0],
+              y: [0, -12, 0],
               scale: isHovered ? 1.08 : 1.03,
             }}
             exit={{ opacity: 0 }}
